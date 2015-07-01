@@ -28,10 +28,10 @@
             servSocket                          envia pedido em datagrama
                                                     usando socketCliente
                                                     
-        escreve resposta ao                    
-    servSocket especificando                     lê resposta do clientSocket
-    endereço IP, número de porta 
-            do cliente
+    escreve resposta ao servSocket           
+    especificando endereço IP,                    lê resposta do clientSocket
+    número de porta do cliente
+    sock.send(mesg, flags[, dest])
                                                         fecha o clientSocket
                                                         
 # Programando o Cliente
