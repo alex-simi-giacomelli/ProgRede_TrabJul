@@ -1,3 +1,4 @@
+=begin
 # ProgRede_TrabJul
 ================================
 # Programação para Redes
@@ -33,29 +34,61 @@
     número de porta do cliente
     sock.send(mesg, flags[, dest])
                                                         fecha o clientSocket
-                                                        
+=end
+
 # Programando o Cliente
 
-Importar biblioteca
-Criar uma classe
-Criar fluxo de entrada
-Cria socket de cliente
-Traduz  nome de hospedeiro ao endereço IP usando DNS
-Cria datagrama com dados para enviar, comprimento, endereço IP, porta
-Envia datagrama ao servidor
-Lê datagrama do servidor
-Imprime os dados recebidos do servidor
-Fecha a conexão
+#Importar biblioteca
+require 'socket'
+require 'timeout'
+# Criar fluxo de entrada
+$port = 12345
+$host = 'localhost'
+# Cria socket de cliente
+client = UDPSocket.new
+# Traduz  nome de hospedeiro ao endereço IP usando DNS
+#conecta a um endereço
+client.connect($host, $port)
+#Cria datagrama com dados para enviar, comprimento, endereço IP, porta
+#Envia datagrama ao servidor
+#Envia os dados p/ servidor
+msg= gets.chomp
+client.send(msg, 0)
+#Lê datagrama do servidor
+#Imprime os dados recebidos do servidor
+timeout(10) do
+	msg_rec=client.recvfrom(80)
+	puts msg_rec[0]
+	puts msg_rec[1]
+end
+#Fecha a conexão
+client.close
+
 
 # Programando o Servidor
-Importar biblioteca
-Criar uma classe
-Cria socket para datagramas na porta 9876
-Inicio do laço
-Aloca memória para receber datagrama
-Recebe datagrama
-Obtém endereço IP, no. de porta do remetente
-Cria datagrama p/ enviar ao cliente
-Escreve datagrama no socket
-Fim do laço, volta ao início e aguarda chegar outro datagrama
+
+# Importar biblioteca
+require 'socket'
+#Cria socket para datagramas
+#Inicializa o socket
+$port = 12345
+$host = 'localhost'
+server = UDPSocket.new
+puts "Servidor inicializado!!!"
+# Vincula a um endereço
+server.bind("localhost", $port)
+# Inicio do laço
+# Aloca memória para receber datagrama
+# Recebe datagrama
+# Recebe os dados do cliente
+# Obtém endereço IP, no. de porta do remetente
+# Cria datagrama p/ enviar ao cliente
+# Escreve datagrama no socket
+loop do
+	msg = server.recvfrom(125)
+	puts "Mensagem de #{msg[1][2]} na porta #{msg[1][1]}: '#{msg[0]}'"
+# Envia os dados
+	server.send(msg[0].upcase,0,msg[1][2], msg[1][1])
+end
+#Fim do laço, volta ao início e aguarda chegar outro datagrama
 
