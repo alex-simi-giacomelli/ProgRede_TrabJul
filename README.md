@@ -21,19 +21,19 @@
             
          cria socket, porta=x,
        p/ pedido que chega                            cria socket
-                servSocket =                        clientSocket = 
-       aSession.bind(hostName, port)        aSession.connect(hostName, port)
+       server = UDPSocket.new                   cliente = UDPSocket.new
+     sever.bind(hostName, port)              cliente.connect(hostName, port)
         
         
             Lê o pedido do                      cria, endereça (nomeHosp, porta=x,
-            servSocket                          envia pedido em datagrama
-                                                    usando socketCliente
+            server socket                          envia pedido em datagrama
+                                                    usando socket Cliente
                                                     
-    escreve resposta ao servSocket           
-    especificando endereço IP,                    lê resposta do clientSocket
+    escreve resposta ao cliente            
+    especificando endereço IP,                    lê resposta do Socket do servidor
     número de porta do cliente
-    sock.send(mesg, flags[, dest])
-                                                        fecha o clientSocket
+    server.send(msg, flags[, dest])
+                                                    fecha o socket do cliente
 =end
 
 # Programando o Cliente
