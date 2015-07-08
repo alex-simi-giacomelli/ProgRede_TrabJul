@@ -46,6 +46,7 @@ $port = 12345
 $host = 'localhost'
 # Cria socket de cliente
 client = UDPSocket.new
+puts "Qual eh a mensagem?"
 # Traduz  nome de hospedeiro ao endereço IP usando DNS
 #conecta a um endereço
 client.connect($host, $port)
@@ -57,12 +58,13 @@ client.send(msg, 0)
 #Lê datagrama do servidor
 #Imprime os dados recebidos do servidor
 timeout(10) do
-	msg_rec=client.recvfrom(80)
+	msg_rec = client.recvfrom(80)
 	puts msg_rec[0]
 	puts msg_rec[1]
+	puts "A conexao foi encerrada."
 end
-#Fecha a conexão
-client.close
+#Fecha a conexão, como é UDP não precisa de comando.
+
 
 
 # Programando o Servidor
@@ -76,7 +78,7 @@ $host = 'localhost'
 server = UDPSocket.new
 puts "Servidor inicializado!!!"
 # Vincula a um endereço
-server.bind("localhost", $port)
+server.bind($host, $port)
 # Inicio do laço
 # Aloca memória para receber datagrama
 # Recebe datagrama
